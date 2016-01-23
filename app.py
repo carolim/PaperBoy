@@ -20,6 +20,7 @@ app.config['DYNAMO_TABLES'] = [
 	Table('requests_outgoing', schema=[HashKey('user_id')]), 
 	Table('requests', schema=[HashKey('request_id')])
 ]
+app.secret_key = 'itissnowingreallyhard'
 
 # create dynamo object
 dynamo = Dynamo(app)
@@ -62,20 +63,26 @@ def create_user():
 # validate login
 @app.route('/validate_login', methods=['POST'])
 def validate_login():
+	print "this is getting here"
 	try:
 		_email = request.form['inputEmail']
 		_password = request.form['inputPassword']
 
-		if len(data) > 0:
-			user = dynamo.users.get_item(hash_key='email')
-			if check_password_hash(user['password'], _password):
-				return redirect('/profile')
-			else:
-				return render_template('error.html', error='Wrong email address or password.')
+		user = dynamo.users.get_item(email=_email)
+		if check_password_hash(user['password'], _password):
+			session['name'] = user['name']
+			print "name: {}".format(session['name'])
+			print "redirecting to newsfeed...."
+			return redirect('/newsfeed')
 		else:
-			return render_template('error.html', error='Please enter a valid address or password.')
+			return render_template('error.html', error='Wrong email address or password.')
 	except Exception as e:
 		return json.dumps({'error':str(e)})
+
+# newsfeed
+@app.route('/newsfeed')
+def newsfeed():
+	return render_template('newsfeed.html')
 
 # TODO:
 # newsfeed page that loads and displays all active requests 
