@@ -1,0 +1,99 @@
+#header {
+	font-size: 36px;
+	padding: 10px 10px 30px;
+	font-family: 'Raleway', sans-serif;
+	margin-left: 30px;
+	text-align: center;
+}
+
+#logo {
+	position: relative;
+}
+
+#title {
+	position: relative;
+	float: top;
+}
+
+ul {
+	list-style-type: none;
+}
+
+.main_feed_container {
+	display: block;
+	border: 1.5px solid #427b9e;
+	padding: 20px 40px 40px 40px; 
+	width: 500px;
+	height: 900px;
+	margin: auto;
+	font-family: 'Raleway', sans-serif;
+	text-align: left;
+}
+
+#friends_feed {
+}
+
+.prof_pic {
+	width: 50px;
+
+}
+
+.friend_event {
+	display: inline-block;
+}
+
+a {
+	text-decoration: none;
+}
+
+.info {
+	display: inline-block;
+}
+
+.request {
+
+}
+
+.accept_button {
+	border: 1.5px solid #3399ff;
+	background: #e5f2ff;
+	position: absolute;
+	margin-top: 15px;
+	padding: 5px 10px;
+	-webkit-border-radius: 12px;
+	-moz-border-radius: 12px;
+	color: #003366;
+}
+
+.accept_button:hover {
+	border-color: #00cc99;
+	background: #66ccff;
+}
+
+.item_price {
+	position: relative;
+	display: inline;
+}
+
+#more_button {
+	border: 1.5px solid #3399ff;
+	background: #e5f2ff;
+	margin: auto;
+	margin-top: 20px;
+	padding: 0px 200px 0px 200px;
+	-webkit-border-radius: 12px;
+	-moz-border-radius: 12px;
+	position: relative;
+	bottom: 10px;
+	text-align: center;
+}
+
+#more_button:hover {
+    border-top-color: #336e96;
+    background: #66ccff;
+}
+
+#more_requests {
+	color: #0066cc;
+}
+
