@@ -113,7 +113,12 @@ def getRequests():
 			print "active_requests: ",active_requests
 			requests_dict = []
 			for req in active_requests:
-				req_dict = {'email':req['requester_email'],'subject':req['subject'],'price':req['price']}
+				req_dict = {
+				'email':req['requester_email'],
+				'subject':req['subject'],
+				'price':req['price'],
+				'timestamp':req['timestamp']
+				}
 				requests_dict.append(req_dict)
 			return json.dumps(requests_dict)
 

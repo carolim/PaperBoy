@@ -68,6 +68,7 @@ ul {
 
 input[type=text] {
 	border-radius: 5px;
+	font-size:24px;
 } 
 
 .main_feed_container {
@@ -85,6 +86,7 @@ input[type=text] {
 
 .prof_pic {
 	width: 50px;
+	padding:5px 15px 0px 5px;
 }
 
 .friend_event {
@@ -126,3 +128,12 @@ a {
 	display: inline;
 }
 
+#timestamp {
+	font-size:12px;
+}
+
+#submitButton {
+	margin-left:30px;
+	width:70px;
+	font-size:40em;
+}

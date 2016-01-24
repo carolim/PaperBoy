@@ -19,11 +19,11 @@
 	</div>
 
 	<div id="request_header">
-		<form id="new_request" align="center">
+		<form id="new_request" align="center" action="/createRequest" method="POST">
 			<input type="text" name="request" placeholder="Request something here!" size="32">
 			for
 			<input type="text" name="price" placeholder="$0.00"> 
-			<input type="submit" name="submit" value="Submit">
+			<input id="submitButton" type="submit" name="submit" value="Submit">
 		</form>
 	</div>
 
@@ -36,7 +36,7 @@
 							<tr>
 								<td class="prof_pic">
 									<a href="/user_name" class="bold">
-										<img src="link">
+										<img src="../static/img/user.png" width="50px">
 									</a>
 								</td>
 								<td class="info">
@@ -47,19 +47,25 @@
 										  for 
 										<span>&nbsp;</span><div class="item_price">$${price}</div>
 									</div>
+									<div id="timestamp">
+										${timestamp}
+									</div>
 								</td>
 								<td>
 									<div class="accept_button">
 										<a href="/accept" class="bold" onclick="accept event">Accept</a>
 									</div>
 								</td>
+
 							</tr>
+
 						</tbody>
 					</table>
+					
 				</div>
 		    </script>
 		    <div class="row">
-            <div class="col-md-12">
+            <div >
                 
                     <div class="panel-body">
 
