@@ -164,6 +164,37 @@ def createRequest():
 			return json.dumps({'html':'<span>Please enter the required fields.</span>'})
 	except Exception as e:
 		return json.dumps({'error':str(e)}) 
+
+@app.route('/getAllUserRequests')
+def getAllUserRequests():
+	# get all requests for a particular user
+	try:
+		if session.get('userid'):
+			_email = session.get('userid')
+			incoming_requests = dynamo.requests.scan(requester_email__eq=_email)
+			outgoing_requests = dynamo.requests.scan(acceptor_email__eq=_email)
+
+			requests_dict = []
+			for req in incoming_requests:
+				req_dict = {'requester':req['requester_email'],'subject':req['subject'],'price':req['price'],'acceptor':req['acceptor_email'], 'timestamp':req[timestamp]}
+				requests_dict.append(req_dict)		
+			for req in outgoing_requests:
+				req_dict = {'requester':req['requester_email'],'subject':req['subject'],'price':req['price'],'acceptor':req['acceptor_email'], 'timestamp':req[timestamp]}
+				requests_dict.append(req_dict)	
+			return json.dumps(requests_dict)
+		else:
+			return render_template('error.html', error='Unauthorized Access')
+	except Exception as e:
+		return render_template('error.html', error=str(e))
+
+
+# render profile page
+@app.route('/profile')
+def profile():
+	if session.get('userid'):
+		return render_template('profile.html')
+	else:
+		return render_template('error.html',error = 'Unauthorized Access')
 # TODO:
 # newsfeed page that loads and displays all active requests 
 
