@@ -89,6 +89,11 @@
 	$(function(){    
 	    GetRequests();
 	});
+
+	$('.accept_button').click(function (e) {
+		$this.addClass('accepted');
+	});
+
 	function GetRequests(){
 	    $.ajax({
 	        url : '/getRequests',

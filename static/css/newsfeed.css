@@ -123,6 +123,10 @@ a {
 	background: #66ccff;
 }
 
+.accept_button.accepted {
+	display: none;
+}
+
 .item_price {
 	position: relative;
 	display: inline;
