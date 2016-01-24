@@ -56,6 +56,10 @@ ul {
 	list-style-type: none;
 }
 
+#request_header {
+	align: center;
+}
+
 .main_feed_container {
 	background-color:#f5f5f5;
 	border-radius:15px;
