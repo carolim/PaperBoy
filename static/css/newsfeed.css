@@ -105,8 +105,10 @@ a {
 	-webkit-border-radius: 12px;
 	-moz-border-radius: 12px;
 	color: #003366;
-	margin-left: 50px;
+	margin-top: 5px;
+	margin-right: 10px;
 	width: 50px;
+	float: right;
 }
 
 .accept_button:hover {
