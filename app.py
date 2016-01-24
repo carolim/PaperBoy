@@ -30,10 +30,24 @@ dynamo = Dynamo(app)
 def home():
 	return render_template('index.html')
 
+# form submit
+@app.route('/formSubmit',methods=['POST'])
+def formSubmit():
+	_name = request.form['inputName']
+	_email = request.form['inputEmail']
+	_password = request.form['inputPassword']
+
+	_field = request.form['field']
+	print _field
+	if _field == "btn-login":
+		return validate_login(_email,_password)
+	else:
+		return create_user(_name,_email,_password)
+
 
 # create a new user
-@app.route('/create_user', methods=['POST', 'GET'])
-def create_user():
+# @app.route('/create_user', methods=['POST'])
+def create_user(name, email,password):
 	print "creating user..."
 	try:
 		_name = request.form['inputName']
@@ -61,16 +75,15 @@ def create_user():
 
 
 # validate login
-@app.route('/validate_login', methods=['POST'])
-def validate_login():
-	print "this is getting here"
+# @app.route('/validate_login', methods=['POST'])
+def validate_login(email,password):
 	try:
 		_email = request.form['inputEmail']
 		_password = request.form['inputPassword']
 
 		user = dynamo.users.get_item(email=_email)
 		if check_password_hash(user['password'], _password):
-			session['name'] = user['name']
+			session['userid'] = user['email']
 			print "name: {}".format(session['name'])
 			print "redirecting to newsfeed...."
 			return redirect('/newsfeed')
@@ -82,7 +95,11 @@ def validate_login():
 # newsfeed
 @app.route('/newsfeed')
 def newsfeed():
-	return render_template('newsfeed.html')
+	if session.get('userid'):
+		return render_template('newsfeed.html')
+	else:
+		return render_template('error.html',error = 'Unauthorized Access')
+	
 
 # TODO:
 # newsfeed page that loads and displays all active requests 
