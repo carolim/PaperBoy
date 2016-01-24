@@ -35,6 +35,11 @@ def home():
 	else:
 		return render_template('index.html')
 
+# logout
+@app.route('/logout')
+def logout():
+	session.pop('userid',None)
+	return redirect('/')
 
 # form submit
 @app.route('/formSubmit',methods=['POST'])
@@ -134,8 +139,12 @@ def getRequests():
 def createRequest():
 	try:
 		if session.get('userid'):
-			print "IN HERE"
 			i = datetime.datetime.now()
+			rows = dynamo.requests.scan()
+			count = 0
+			for r in rows:
+				count = count + 1
+			count = count + 1
 
 			# parameters
 			_requesteremail = session.get('userid')
@@ -143,8 +152,7 @@ def createRequest():
 			_status = "Available"
 			_timestamp = i.strftime('%Y/%m/%d %H:%M:%S')
 			_price = str(request.form['price'])
-			_id = str(dynamo.requests.count() + 1)
-			print "1: ",_requesteremail," 2: ",_subject," 3: ",_status," 4: ",_timestamp," 5: ",_price," 6: ",_id
+			_id = str(count)
 
 			# add it to requests
 			dynamo.requests.put_item(data={
@@ -156,7 +164,6 @@ def createRequest():
 				'subject':_subject,
 				'timestamp':_timestamp
 			})
-			print "put item in db"
 			return redirect('/newsfeed')
 
 
