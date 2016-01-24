@@ -5,6 +5,9 @@
       <title>Name:PaperBoy</title>
       
       <link rel="stylesheet" href="../static/css/profilestyle.css">
+      <script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+      <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+      <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.templates/beta1/jquery.tmpl.js"></script>
   </head>
     
   <body>
@@ -16,30 +19,149 @@
       </div>
               
       <div class="container">
-          <div class="profilepage" align="center"> 
+          <div class="profilepage" align="center" > 
             <div class="listingsholder">
                 <div class="listings">
                     <h1>My Requests</h1>
                 </div>
-                <label><input type="checkbox" name="checkbox" value="value">Text</label>
+                <script id="listTemplate" type="text/x-jQuery-tmpl">
+                  <div id="user_id1" class="friend_event"> 
+                     <table width="100%">
+                      <tbody>
+                       <tr>
+                        <td class="prof_pic">
+                          <a href="/user_name" class="bold">
+                            <img src="../static/img/user.png" width="50px">
+                          </a>
+                        </td>
+                        <td class="info">
+                          <div class="request">
+                            <a href="/user_name" class="bold">${email}</a>
+                              requests 
+                            <a href="/request" class="bold">${subject}</a>
+                          </div>
+                          <div id="timestamp">
+                            ${timestamp}
+                          </div>
+                        </td>
+
+                      </tr>
+
+                    </tbody>
+                  </table>
+          
+                </div>
+              </script>
+              <div class="row">
+                  <div >
+                
+                    <div class="panel-body">
+
+                        <ul id="ulist" class="list-group">
+                            
+
+                            
+                        </ul>
+                    </div>
+                    
+                  </div>
+              </div>
             </div>
             
-            <div class="listingsholder">
+            <div class="listingsholder" style="margin-left:30px">
                 <div class="listings">
                     <h1>My Runs</h1>
                 </div>
-                <label><input type="checkbox" name="checkbox" value="value">Text</label>
+                <script id="listTemplate" type="text/x-jQuery-tmpl">
+                  <div id="user_id2" class="friend_event"> 
+                     <table width="100%">
+                      <tbody>
+                       <tr>
+                        <td class="prof_pic">
+                          <a href="/user_name" class="bold">
+                            <img src="../static/img/user.png" width="50px">
+                          </a>
+                        </td>
+                        <td class="info">
+                          <div class="request">
+                            <a href="/user_name" class="bold">${email}</a>
+                              requests 
+                            <a href="/request" class="bold">${subject}</a>
+                          </div>
+                          <div id="timestamp">
+                            ${timestamp}
+                          </div>
+                        </td>
+
+                      </tr>
+
+                    </tbody>
+                  </table>
+          
+                </div>
+              </script>
+              <div class="row">
+                  <div >
+                
+                    <div class="panel-body">
+
+                        <ul id="ulist2" class="list-group">
+                            
+
+                            
+                        </ul>
+                    </div>
+                    
+                  </div>
+              </div>
+            </div>
             </div>
             
-            <div class="listingsholder">
+            <!-- <div class="listingsholder">
                 <div class="listings">
                     <h1>Completed</h1>
                 </div>
                 <label><input type="checkbox" name="checkbox" value="value">Text</label>
-            </div>
+            </div> -->
           </div>
       </div>
     </div>
   </body>
+  <script>
+      $(function(){   
+          GetIncomingRequests();
+          GetOutgoingRequests();
+      });
+      function GetIncomingRequests(){
+          $.ajax({
+              url : '/getIncomingRequests',
+              type : 'GET',
+              success: function(res){                  
+                  console.log(res);
+                  var groupObj = JSON.parse(res);
+                  $('#ulist').empty();
+                  $('#listTemplate').tmpl(groupObj).appendTo('#ulist');                   
+              },
+              error: function(error){
+                  console.log(error);
+              }
+          });
+      }
+      function GetOutgoingRequests(){
+          $.ajax({
+              url : '/getOutgoingRequests',
+              type : 'GET',
+              success: function(res){                  
+                  console.log(res);
+                  var groupObj = JSON.parse(res);
+                  $('#ulist2').empty();
+                  $('#listTemplate').tmpl(groupObj).appendTo('#ulist2');                   
+              },
+              error: function(error){
+                  console.log(error);
+              }
+          });
+      }
+</script>
     
 </html>

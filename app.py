@@ -135,6 +135,48 @@ def getRequests():
 	except Exception as e:
 		return render_template('error.html', error = str(e))
 
+@app.route('/getIncomingRequests')
+def getIncomingRequests():
+	try:
+		if session.get('userid'):
+			_email = session.get('userid')
+			incoming_requests = dynamo.requests.scan(requester_email__eq=_email)
+			print incoming_requests
+			incoming_requests_dict = []
+			for req in incoming_requests:
+				req_dict = {
+				'email':req['requester_email'],
+				'subject':req['subject'],
+				'timestamp':req['timestamp']
+				}
+				incoming_requests_dict.append(req_dict)
+			return json.dumps(incoming_requests_dict)
+		else:
+			return render_template('error.html', error="Unauthorized Access")
+	except Exception as e:
+		return render_template('error.html',error=str(e))
+
+@app.route('/getOutgoingRequests')
+def getOutgoingRequests():
+	try:
+		if session.get('userid'):
+			_email = session.get('userid')
+			outgoing_requests = dynamo.requests.scan(acceptor_email__eq=_email)
+			outgoing_requests_dict = []
+			for req in outgoing_requests:
+				req_dict = {
+				'email':req['acceptor_email'],
+				'subject':req['subject'],
+				'timestamp':req['timestamp']
+				}
+				outgoing_requests_dict.append(req_dict)
+			print json.dumps(outgoing_requests_dict)
+			return json.dumps(outgoing_requests_dict)
+		else:
+			return render_template('error.html', error="Unauthorized Access")
+	except Exception as e:
+		return render_template('error.html',error=str(e))
+
 @app.route('/createRequest',methods=['POST'])
 def createRequest():
 	try:
