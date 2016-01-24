@@ -7,6 +7,8 @@ from boto.dynamodb2.types import NUMBER
 from flask import Flask, render_template, redirect, url_for, request, session, json
 from flask.ext.dynamo import Dynamo
 from werkzeug import generate_password_hash, check_password_hash
+import datetime
+
 
 # create environment variables
 os.environ['AWS_SECRET_ACCESS_KEY'] = "UVMvkydy6RT0VthqxtG/qWwnd2WBd+IVqKvLQOOt"
@@ -109,7 +111,7 @@ def getRequests():
 			print "got the userid"
 			_email = session.get('userid')
 			print "email is ",_email
-			active_requests = dynamo.requests.scan(accepted__eq='False')
+			active_requests = dynamo.requests.scan()
 			print "active_requests: ",active_requests
 			requests_dict = []
 			for req in active_requests:
@@ -117,7 +119,8 @@ def getRequests():
 				'email':req['requester_email'],
 				'subject':req['subject'],
 				'price':req['price'],
-				'timestamp':req['timestamp']
+				'timestamp':req['timestamp'],
+				'status':req['status']
 				}
 				requests_dict.append(req_dict)
 			return json.dumps(requests_dict)
@@ -127,6 +130,40 @@ def getRequests():
 	except Exception as e:
 		return render_template('error.html', error = str(e))
 
+@app.route('/createRequest',methods=['POST'])
+def createRequest():
+	try:
+		if session.get('userid'):
+			print "IN HERE"
+			i = datetime.datetime.now()
+
+			# parameters
+			_requesteremail = session.get('userid')
+			_subject = request.form['request']
+			_status = "Available"
+			_timestamp = i.strftime('%Y/%m/%d %H:%M:%S')
+			_price = str(request.form['price'])
+			_id = str(dynamo.requests.count() + 1)
+			print "1: ",_requesteremail," 2: ",_subject," 3: ",_status," 4: ",_timestamp," 5: ",_price," 6: ",_id
+
+			# add it to requests
+			dynamo.requests.put_item(data={
+				'request_id':_id,
+				'acceptor_email':"true",
+				'price':_price,
+				'requester_email':_requesteremail,
+				'status':_status,
+				'subject':_subject,
+				'timestamp':_timestamp
+			})
+			print "put item in db"
+			return redirect('/newsfeed')
+
+
+		else:
+			return json.dumps({'html':'<span>Please enter the required fields.</span>'})
+	except Exception as e:
+		return json.dumps({'error':str(e)}) 
 # TODO:
 # newsfeed page that loads and displays all active requests 
 
