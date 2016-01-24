@@ -10,21 +10,48 @@
 </head>
 <body>
 
+		<!-- Single request 
+		<div id="user_id1" class="friend_event"> 
+			<table width="100%">
+				<tbody>
+					<tr>
+						<td class="prof_pic">
+							<a href="/user_name" class="bold">
+								<img src="link">
+							</a>
+						</td>
+						<td class="info">
+							<div class="request">
+								<a href="/user_name" class="bold">User</a>
+									requests 
+								<a href="/request" class="bold">Item</a>
+								  for 
+								<span>&nbsp;</span><div class="item_price"> $</div>
+							</div>
+							<div class="accept_button">
+								<a href="/accept" class="bold" onclick="accept event">Accept</a>
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		-->
+
 	<div id="header">
 		<div id="logo"> <img id="pb_logo" src="../static/img/logo4.png"> </div>
 		<div id="title"> PaperBoy </div>
 	</div>
 
-	
+	<div id="request_header">
+		<form id="new_request" align="center">
+			<input type="text" name="request" placeholder="Request something here!" size="32">
+			<input type="submit" name="submit" value="Submit">
+		</form>
+	</div>
 
 	<div class="main_feed_container">
 		<div id="friends_feed">
-			<ul>
-				<li>
-					Request
-				</li>
-			</ul>
-			 Single request 
 			<script id="listTemplate" type="text/x-jQuery-tmpl">
 		        <div id="user_id1" class="friend_event"> 
 					<table width="100%">
@@ -43,13 +70,14 @@
 										  for 
 										<span>&nbsp;</span><div class="item_price">$${price}</div>
 									</div>
-									<div class="accept_button">
-										<a href="/accept" class="bold" onclick="accept event">Accept</a>
-									</div>
+									
 								</td>
 							</tr>
 						</tbody>
 					</table>
+					<div class="accept_button">
+						<a href="/accept" class="bold" onclick="accept event">Accept</a>
+					</div>
 				</div>
 		    </script>
 		    <div class="row">
@@ -68,14 +96,6 @@
             </div>
         </div>
 
-			
-			
-
-			<div id="more_button" onclick="load more event">
-				<a href="#" id="more_requests">Load More</a>
-			</div>
-		</div>
-	</div>
 
 </body>
 <script>
