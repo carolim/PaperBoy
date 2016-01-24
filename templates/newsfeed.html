@@ -51,8 +51,8 @@
 									</div>
 								</td>
 								<td>
-									<div class="accept_button">
-										<a href="/accept" class="bold" onclick="accept event">Accept</a>
+									<div class="accept_button" onClick="onAcceptClick(this)">
+										Accept
 									</div>
 								</td>
 
@@ -85,6 +85,12 @@
 	$(function(){    
 	    GetRequests();
 	});
+
+
+	var onAcceptClick = function (item) {
+		$(item).addClass('accepted');
+	};
+
 	function GetRequests(){
 	    $.ajax({
 	        url : '/getRequests',
