@@ -17,6 +17,27 @@ html {
 	color: #427b9e;
 }
 
+#logo {
+  margin-top: 25px;
+  position: relative;
+  border-radius: 10px;
+  display: inline-block;
+}
+
+#pb_logo {
+  border-radius:15px;
+  position: relative;
+  width: 100px;
+  animation-duration: 4s;
+  animation-name: fadein;
+}
+
+#entire_page {
+  overflow: auto;
+  height: 100vh;
+  position: relative;
+}
+
 body {
   position: relative;
   margin: 0;
@@ -28,15 +49,17 @@ body {
 
 .container {
     position: relative;
+    height: 100vh;
 }
 
 .profilepage {
     position: relative;
+    height: 100vh;
 }
 
 .listingsholder {
     display: inline-block;
-    height: 500px;
+    height: 100%;
     border-radius: 1em;
     background: white;
 }
