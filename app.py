@@ -71,7 +71,7 @@ def create_user(name, email,password):
 					'password': generate_password_hash(_password)
 				})
 			print "put item in db"
-			return json.dumps({'message': 'User created successfully!'})
+			return redirect('/')
 		else:
 			return json.dumps({'html':'<span>Please enter the required fields.</span>'})
 	except Exception as e:
@@ -88,8 +88,6 @@ def validate_login(email,password):
 		user = dynamo.users.get_item(email=_email)
 		if check_password_hash(user['password'], _password):
 			session['userid'] = user['email']
-			print "name: {}".format(session['name'])
-			print "redirecting to newsfeed...."
 			return redirect('/newsfeed')
 		else:
 			return render_template('error.html', error='Wrong email address or password.')
