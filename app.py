@@ -28,7 +28,11 @@ dynamo = Dynamo(app)
 # home page
 @app.route('/')
 def home():
-	return render_template('index.html')
+	if session.get('userid'):
+		return render_template('newsfeed.html')
+	else:
+		return render_template('index.html')
+
 
 # form submit
 @app.route('/formSubmit',methods=['POST'])
