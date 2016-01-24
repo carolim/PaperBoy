@@ -104,9 +104,29 @@ def newsfeed():
 	else:
 		return render_template('error.html',error = 'Unauthorized Access')
 	
+@app.route('/getRequests')
+def getRequests():
+	try:
+		if session.get('userid'):
+			print "got the userid"
+			_email = session.get('userid')
+			print "email is ",_email
+			active_requests = dynamo.requests.scan(accepted__eq='False')
+			print "active_requests: ",active_requests
+			requests_dict = []
+			for req in active_requests:
+				req_dict = {'email':req['requester_email'],'subject':req['subject'],'price':req['price']}
+				requests_dict.append(req_dict)
+			return json.dumps(requests_dict)
+
+		else:
+		    return render_template('error.html', error = 'Unauthorized Access')
+	except Exception as e:
+		return render_template('error.html', error = str(e))
 
 # TODO:
 # newsfeed page that loads and displays all active requests 
+
 # personal page that shows person's profile
 # create a request
 # delete a request

@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>PaperBoy</title>
-<link rel="stylesheet" href="../static/css/newsfeed.css"/>
-<link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+	<title>PaperBoy</title>
+	<link rel="stylesheet" href="../static/css/newsfeed.css"/>
+	<link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+	<script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+	<script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+	<script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.templates/beta1/jquery.tmpl.js"></script>
 </head>
 <body>
 
@@ -11,6 +14,9 @@
 		<div id="logo"> <img id="pb_logo" src="../static/img/logo4.png"> </div>
 		<div id="title"> PaperBoy </div>
 	</div>
+
+	
+
 	<div class="main_feed_container">
 		<div id="friends_feed">
 			<ul>
@@ -19,31 +25,50 @@
 				</li>
 			</ul>
 			 Single request 
-			<div id="user_id1" class="friend_event"> 
-				<table width="100%">
-					<tbody>
-						<tr>
-							<td class="prof_pic">
-								<a href="/user_name" class="bold">
-									<img src="link">
-								</a>
-							</td>
-							<td class="info">
-								<div class="request">
-									<a href="/user_name" class="bold">User</a>
-										requests 
-									<a href="/request" class="bold">Item</a>
-									  for 
-									<span>&nbsp;</span><div class="item_price"> $</div>
-								</div>
-								<div class="accept_button">
-									<a href="/accept" class="bold" onclick="accept event">Accept</a>
-								</div>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
+			<script id="listTemplate" type="text/x-jQuery-tmpl">
+		        <div id="user_id1" class="friend_event"> 
+					<table width="100%">
+						<tbody>
+							<tr>
+								<td class="prof_pic">
+									<a href="/user_name" class="bold">
+										<img src="link">
+									</a>
+								</td>
+								<td class="info">
+									<div class="request">
+										<a href="/user_name" class="bold">${email}</a>
+											requests 
+										<a href="/request" class="bold">${subject}</a>
+										  for 
+										<span>&nbsp;</span><div class="item_price">$${price}</div>
+									</div>
+									<div class="accept_button">
+										<a href="/accept" class="bold" onclick="accept event">Accept</a>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+		    </script>
+		    <div class="row">
+            <div class="col-md-12">
+                
+                    <div class="panel-body">
+
+                        <ul id="ulist" class="list-group">
+                            
+
+                            
+                        </ul>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+
+			
 			
 
 			<div id="more_button" onclick="load more event">
@@ -53,4 +78,24 @@
 	</div>
 
 </body>
+<script>
+	$(function(){    
+	    GetRequests();
+	});
+	function GetRequests(){
+	    $.ajax({
+	        url : '/getRequests',
+	        type : 'GET',
+	        success: function(res){           
+	            console.log(res);
+	            var groupObj = JSON.parse(res);
+	            $('#ulist').empty();
+	            $('#listTemplate').tmpl(groupObj).appendTo('#ulist');	            
+	        },
+	        error: function(error){
+	            console.log(error);
+	        }
+	    });
+	}
+</script>
 </html>
