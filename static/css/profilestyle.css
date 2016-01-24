@@ -1,0 +1,59 @@
+/* Base styles */
+*, *:after, *:before {
+  box-sizing: border-box;
+}
+html {
+  font-size: 100%;
+  line-height: 1.5;
+  height: 100%;
+}
+
+#header {
+	font-size: 36px;
+	padding: 10px 10px 30px;
+	font-family: 'Raleway', sans-serif;
+	margin-left: 30px;
+	text-align: center;
+	color: #427b9e;
+}
+
+body {
+  position: relative;
+  margin: 0;
+  font-family: 'Work Sans', Arial, Helvetica, sans-serif;
+  min-height: 100%;
+  background: linear-gradient(to bottom, #68EACC 0%, #497BE8 100%);
+  color: #777;
+}
+
+.container {
+    position: relative;
+}
+
+.profilepage {
+    position: relative;
+}
+
+.listingsholder {
+    display: inline-block;
+    height: 500px;
+    border-radius: 1em;
+    background: white;
+}
+
+.listings {
+    padding-right: 5em;
+    padding-left: 5em;
+}
+
+/* Intro animation */
+@keyframes intro {
+  from {
+    opacity: 0;
+    top: 0;
+  }
+  to {
+    opacity: 1;
+    top: 50%;
+  }
+}
