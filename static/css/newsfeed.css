@@ -69,7 +69,7 @@ input[type=text] {
 	background-color:#f5f5f5;
 	border-radius:15px;
 	display: block;
-	padding: 20px 40px 40px 40px; 
+	padding: 20px 40px 50px 40px; 
 	width: 800px;
 	height: 100%;
 	margin: auto;
@@ -82,8 +82,10 @@ input[type=text] {
 }
 
 .friend_event {
-	display: inline-block;
 	position: relative;
+	padding-bottom: 20px;
+	border: 1px solid #3399ff;
+	margin-bottom: 10px;
 }
 
 a {
@@ -97,13 +99,13 @@ a {
 .accept_button {
 	border: 1.5px solid #3399ff;
 	background: #e5f2ff;
-	position: absolute;
-	margin-top: 15px;
+	position: relative;
 	padding: 5px 10px;
 	-webkit-border-radius: 12px;
 	-moz-border-radius: 12px;
 	color: #003366;
-	margin: auto;
+	margin-left: 50px;
+	width: 50px;
 }
 
 .accept_button:hover {
@@ -115,26 +117,4 @@ a {
 	position: relative;
 	display: inline;
 }
-
-#more_button {
-	border: 1.5px solid #3399ff;
-	background: #e5f2ff;
-	margin-top: 60px;
-	padding: 0px 200px 0px 200px;
-	-webkit-border-radius: 12px;
-	-moz-border-radius: 12px;
-	position: relative;
-	bottom: 0px;
-	text-align: center;
-}
-
-#more_button:hover {
-    border-top-color: #336e96;
-    background: #66ccff;
-}
-
-#more_requests {
-	color: #0066cc;
-}
-
 
